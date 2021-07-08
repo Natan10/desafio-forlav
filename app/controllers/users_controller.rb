@@ -16,6 +16,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit;end
+
+  def update
+    # TODO: update user
+    byebug
+  end
+
 
   private 
 

@@ -1,3 +1,26 @@
 <%= link_to new_user_url do %>
   <button class="button is-dark">Criar user</button>
 <%end%>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><abbr title="nome">Nome</abbr></th>
+      <th><abbr title="email">Email</abbr></th>
+      <th><abbr title="data_de_nasc">Data de Nasc</abbr></th>
+      <th><abbr title="op">Editar</abbr></th>
+      <th><abbr title="op">Deletar</abbr></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th><%= user.name %></th>
+        <th><%= user.email %></th>
+        <th><%= user.birthdate %></th>
+        <th><%= link_to 'Editar', edit_user_path(user) %></th>
+        <th><%#= link_to 'Editar', edit_user_path(user) %></th>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
