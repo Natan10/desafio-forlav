@@ -1,0 +1,34 @@
+<%= form_with model: user , local: true do |f| %>
+  <% if user.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      
+      <ul>
+        <% user.errors.full_messages.each do |error| %>
+          <li><%=error%></li>
+        <%end%>
+      </ul>
+    </div>
+  <%end %>
+
+  <div class="field-group">
+    <div class="field">
+      <%= f.label :name, "name" %>
+      <%= f.text_field :name , placeholder: "digite seu nome..." %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "email" %>
+      <%= f.email_field :email , placeholder: "digite seu email..." %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :birthdate, "data de aniversário" %>
+      <%= f.date_field :birthdate , placeholder: "digite sua data de nascimento..."%>
+    </div>
+
+    <div class="submit">
+      <%= f.submit "Enviar" %>
+    </div>
+  </div>
+<%end%>
