@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit,:update,:delete]
+
+
   def index
     @users = User.all
   end
@@ -19,8 +22,11 @@ class UsersController < ApplicationController
   def edit;end
 
   def update
-    # TODO: update user
-    byebug
+    if @user.update(user_params)
+      redirect_to root_path, notice: "User updated successfully"
+    else
+      render :edit
+    end
   end
 
 
@@ -29,5 +35,9 @@ class UsersController < ApplicationController
   def user_params 
     params.require(:user)
     .permit(:name,:email,:birthdate)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
