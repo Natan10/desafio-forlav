@@ -19,7 +19,7 @@
         <th><%= user.email %></th>
         <th><%= user.birthdate %></th>
         <th><%= link_to 'Editar', edit_user_path(user) %></th>
-        <th><%#= link_to 'Editar', edit_user_path(user) %></th>
+        <th><%= link_to 'Deletar', user_path(user), method: :delete %></th>
       </tr>
     <%end%>
   </tbody>
