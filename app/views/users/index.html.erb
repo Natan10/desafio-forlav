@@ -8,6 +8,7 @@
       <th><abbr title="nome">Nome</abbr></th>
       <th><abbr title="email">Email</abbr></th>
       <th><abbr title="data_de_nasc">Data de Nasc</abbr></th>
+      <th><abbr title="op">Ver</abbr></th>
       <th><abbr title="op">Editar</abbr></th>
       <th><abbr title="op">Deletar</abbr></th>
     </tr>
@@ -18,6 +19,7 @@
         <th><%= user.name %></th>
         <th><%= user.email %></th>
         <th><%= user.birthdate %></th>
+        <th><%= link_to 'Ver', user_path(user) %></th>
         <th><%= link_to 'Editar', edit_user_path(user) %></th>
         <th><%= link_to 'Deletar', user_path(user), method: :delete %></th>
       </tr>
