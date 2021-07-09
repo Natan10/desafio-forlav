@@ -1,28 +1,29 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[edit update show destroy]
-  
+
   def index
     @users = User.all
   end
 
-  def new 
-    @user = User.new 
+  def new
+    @user = User.new
   end
 
   def show
     @transaction = Transaction.new
-  end 
+  end
 
-  def create 
+  def create
     @user = User.new(user_params)
     if @user.save
       redirect_to root_path, notice: "User created successfully"
     else
-      render :new 
+      render :new
     end
   end
 
-  def edit;end
+  def edit
+  end
 
   def update
     if @user.update(user_params)
@@ -40,12 +41,11 @@ class UsersController < ApplicationController
     end
   end
 
+  private
 
-  private 
-
-  def user_params 
+  def user_params
     params.require(:user)
-    .permit(:name,:email,:birthdate)
+      .permit(:name, :email, :birthdate)
   end
 
   def set_user

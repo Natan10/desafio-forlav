@@ -5,6 +5,6 @@ if @result.errors.empty?
     json.value @result.transaction.value
     json.status @result.transaction.status
   end
-else 
+else
   json.errors @result.errors.first
 end

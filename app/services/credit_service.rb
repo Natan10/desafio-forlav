@@ -1,13 +1,13 @@
 class CreditService
   attr_accessor :transaction, :errors, :wallet
 
-  def initialize(transaction,wallet)
+  def initialize(transaction, wallet)
     @transaction = transaction
     @wallet = wallet
     @errors = []
   end
 
-  def credit 
+  def credit
     @wallet.balance += transaction.value
     ActiveRecord::Base.transaction do
       @wallet.save
@@ -15,6 +15,4 @@ class CreditService
     end
     self
   end
-
-
 end

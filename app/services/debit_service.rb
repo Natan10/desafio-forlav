@@ -1,13 +1,13 @@
 class DebitService
   attr_accessor :transaction, :errors, :wallet
 
-  def initialize(transaction,wallet)
+  def initialize(transaction, wallet)
     @transaction = transaction
     @wallet = wallet
     @errors = []
   end
 
-  def debit 
+  def debit
     if @transaction.value <= @wallet.balance
       @wallet.balance -= @transaction.value
       ActiveRecord::Base.transaction do
@@ -16,7 +16,7 @@ class DebitService
       end
       return self
     end
-      errors << "Saldo insuficiente!!!"
-      self
+    errors << "Saldo insuficiente!!!"
+    self
   end
 end

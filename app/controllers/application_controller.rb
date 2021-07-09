@@ -4,16 +4,16 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   def current_user
-    @current_user ||= current_manager 
+    @current_user ||= current_manager
   end
 
   private
 
   def layout_by_resource
     if current_manager
-      'application'
+      "application"
     else
-      'auth'
+      "auth"
     end
   end
 end
