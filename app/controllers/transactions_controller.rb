@@ -25,7 +25,6 @@ class TransactionsController < ApplicationController
 
   def debit
     debit = DebitService.new(@transaction,@wallet).debit
-    byebug
     if debit.errors.empty?
       flash[:success]= "Débito feito com sucesso!"
     else 

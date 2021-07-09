@@ -1,5 +1,5 @@
 class DebitService
-  attr_accessor :transaction, :errors
+  attr_accessor :transaction, :errors, :wallet
 
   def initialize(transaction,wallet)
     @transaction = transaction
