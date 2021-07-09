@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def create_wallet
     Wallet.create!(user_id: self.id)
   end
+
+  def current_balance
+    self.wallet.balance
+  end
 end

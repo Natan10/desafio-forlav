@@ -6,6 +6,12 @@ Rails.application.routes.draw do
 
   resources :transactions, only: :create
 
+  namespace :api,defaults: {format: :json} do 
+    scope module: :v1 do
+      get "/movements/:user_id/balance", to: "movements#balance"
+    end 
+  end
+
   
   root to: "users#index"
 end
