@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api,defaults: {format: :json} do 
     scope module: :v1 do
       get "/movements/:user_id/balance", to: "movements#balance"
+      get "/movements/:user_id/entries", to: "movements#entries"
       post "/movements/transaction", to: "movements#transaction"
     end 
   end

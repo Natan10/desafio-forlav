@@ -1,14 +1,12 @@
 module Api 
   module V1 
     class MovementsController < ApiController
-     
+      
       def balance
-        @balance = set_user
+        @balance = set_user.current_balance
         render :balance
       rescue ActiveRecord::RecordNotFound
-        render json: {
-          error: "Usuário não existe!"
-        }, status: :not_found
+        verify_user
       end
 
       def transaction 
@@ -22,9 +20,16 @@ module Api
         render :transaction, status: :created
 
       rescue ActiveRecord::RecordNotFound
-        render json: {
-          error: "Carteira não existe!"
-        }, status: :not_found
+        verify_wallet
+      end
+
+      def entries
+        @entries = set_user.transactions
+        .order(created_at: :desc)
+        
+        render :entries
+      rescue ActiveRecord::RecordNotFound
+        verify_user
       end
 
       private
@@ -42,19 +47,26 @@ module Api
       def set_wallet
         @wallet = Wallet.find(params[:wallet_id])
       end
+
+      def set_user
+        @user = User.find(params[:user_id])
+      end
       
       def transaction_params
         params.require(:movement)
         .permit(:wallet_id, :value,:status)
       end
 
-      def set_user
-        User.find(params[:user_id]).current_balance
-      end
-
-      def verify_user(e)
+      
+      def verify_user
         render json: {
           error: "Usuário não existe!"
+        }, status: :not_found
+      end
+
+      def verify_wallet
+        render json: {
+          error: "Carteira não existe!"
         }, status: :not_found
       end
     end
