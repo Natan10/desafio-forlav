@@ -15,21 +15,21 @@ class TransactionsController < ApplicationController
   private
 
   def credit 
-    @wallet.balance += @transaction.value 
-    @wallet.save 
-    @transaction.save 
-
-    flash[:success]= "Crédito feito com sucesso!"
+    credit = CreditService.new(@transaction,@wallet).credit
+    if credit.errors.empty?
+     flash[:success] = "Crédito feito com sucesso!"
+    else 
+      flash[:error] = "Erro ao creditar!!!"
+    end
   end
 
   def debit
-    if @transaction.value <= @wallet.balance
-      @wallet.balance -= @transaction.value
-      @wallet.save
-      @transaction.save
+    debit = DebitService.new(@transaction,@wallet).debit
+    byebug
+    if debit.errors.empty?
       flash[:success]= "Débito feito com sucesso!"
-    elsif @transaction.value > @wallet.balance
-      flash[:error]= "Saldo insuficiente!!!"
+    else 
+      flash[:error]= debit.errors.first
     end
   end
 
