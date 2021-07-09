@@ -1,0 +1,35 @@
+<h2><%= @user.name %></h2>
+<h2><%= @user.email %></h2>
+<h2><%= @user.birthdate %></h2>
+
+<h3>Valor: <%= @user.wallet.balance %></h3>
+
+<br/>
+
+
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+
+<%= form_with model: @transaction ,local: false do |f| %>
+  <div class="field-group">
+    <%= f.hidden_field :wallet_id, value: @user.wallet.id %>
+
+    <div class="field">
+      <%= f.label :status, "status" %>
+      <%= f.select :status, Transaction.statuses.to_a  %>
+    </div>
+    <div class="field">
+      <%= f.label :value, "valor" %>
+      <%= f.text_field :value  %>
+    </div>
+
+    <div class="submit">
+      <%= f.submit "Enviar" %>
+    </div>
+  </div>  
+
+<%end%>
