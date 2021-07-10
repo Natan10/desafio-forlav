@@ -11,5 +11,30 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= require bootstrap
+ *= require bold
+ *= require perfect-scrollbar
+ *= require app
+ *= require auth
  *= require_self
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
+
+*,body {
+  font-family: 'Nunito', sans-serif;
+}
+
+#main{
+  height: 100vh;
+  background-color: #F2F7FF;
+}
+
+.user_card{
+  width: 70%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
