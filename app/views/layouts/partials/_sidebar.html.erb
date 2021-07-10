@@ -1,0 +1,38 @@
+<div id="sidebar" class="active">
+  <div class="sidebar-wrapper active">
+    <div class="sidebar-header">
+      <div class="d-flex justify-content-between">
+        <div class="logo">
+          <div class="d-flex align-items-center">
+            <div class="avatar avatar-lg">
+              <img src="/carteira.jpg" style="width:50px;height:60px">
+            </div>
+            <div class="ms-3 name">
+              <h5 class="font-bold">Email</h5>
+              <h6 class="text-muted mb-0">
+                <%= current_manager.email %>
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="toggler">
+            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+        </div>
+      </div>
+    </div>
+      <div class="sidebar-menu">
+        <ul class="menu">
+          <li class="sidebar-title">Menu</li>
+          <li class="sidebar-item">
+            <%= link_to root_url,class:"sidebar-link d-block" do  %>
+              <i class="bi bi-grid-fill"></i>
+              <span>Dashboard</span>
+            <%end%>
+          </li>                       
+        </ul>
+      </div>
+      <button class="sidebar-toggler btn x">
+        <i data-feather="x"></i>
+      </button>
+  </div>
+</div>
