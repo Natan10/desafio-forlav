@@ -1,0 +1,32 @@
+<tr>
+  <td class="col-3">
+    <div class="d-flex align-items-center">
+      <p class="font-bold ms-3 mb-0"><%= user.name %></p>
+    </div>
+  </td>
+  <td class="col-auto">
+    <p class=" mb-0"><%= user.email %></p>
+  </td>
+  <td class="col-auto">
+    <p class=" mb-0"><%= format_date(user.birthdate) %></p>
+  </td>
+   <td class="col-auto">
+    <%= link_to user_path(user) do %>
+      <button class="btn btn-info">
+        <i class="bi bi-file-earmark-bar-graph-fill"></i>
+      </button>
+    <%end %>
+   </td>
+   <td class="col-auto">
+    <%= link_to edit_user_path(user)  do %> 
+      <button class="btn btn-success">
+        <i class="bi bi-pencil-square"></i>
+      </button>
+    <%end%>
+   </td>
+   <td class="col-auto">
+    <%= button_to user_path(user),class: "btn btn-danger", method: :delete do %>
+        <i class="bi bi-trash"></i>
+    <%end%>
+   </td>
+</tr>

@@ -50,5 +50,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    @transactions = @user.transactions.order(created_at: :desc)
+    @credit_count = @user.transactions.transaction_count("credit")
+    @debit_count = @user.transactions.transaction_count("debit")
+    @credit =  @user.transactions.transaction_value("credit")
+    @debit =  @user.transactions.transaction_value("debit")
   end
 end

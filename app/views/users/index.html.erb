@@ -1,28 +1,32 @@
-<%= link_to new_user_url do %>
-  <button class="button is-dark">Criar user</button>
-<%end%>
+<div class="row">
+  <div class="col-12">
+    <div class="card" style="max-height:92vh;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <h4>Usuários</h4>
+          <%= link_to new_user_url do %>
+            <button class="btn btn-success">Novo Usuário</button>
+          <%end%>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-lg">
+            <thead>
+              <tr>
+                <th><abbr title="nome">Nome</abbr></th>
+                <th><abbr title="email">Email</abbr></th>
+                <th><abbr title="data_de_nasc">Data de Nasc</abbr></th>
+                <th><abbr title="op">Ver</abbr></th>
+                <th><abbr title="op">Editar</abbr></th>
+                <th><abbr title="op">Deletar</abbr></th>
+              </tr>
+            </thead>
+            <tbody style="overflow-y: scroll;">
+              <%= render @users %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th><abbr title="nome">Nome</abbr></th>
-      <th><abbr title="email">Email</abbr></th>
-      <th><abbr title="data_de_nasc">Data de Nasc</abbr></th>
-      <th><abbr title="op">Ver</abbr></th>
-      <th><abbr title="op">Editar</abbr></th>
-      <th><abbr title="op">Deletar</abbr></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <th><%= user.name %></th>
-        <th><%= user.email %></th>
-        <th><%= user.birthdate %></th>
-        <th><%= link_to 'Ver', user_path(user) %></th>
-        <th><%= link_to 'Editar', edit_user_path(user) %></th>
-        <th><%= link_to 'Deletar', user_path(user), method: :delete %></th>
-      </tr>
-    <%end%>
-  </tbody>
-</table>

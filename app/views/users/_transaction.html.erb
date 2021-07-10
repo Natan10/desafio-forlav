@@ -1,0 +1,17 @@
+<tr>
+  <td class="col-3">
+    <p class="font-bold ms-3 mb-0"><%= transaction.value %></p>
+  </td>
+  <td class="col-auto">
+      <% if transaction.status == "credit" %>
+        <span class="badge bg-success">entrada</span>
+      <%else%>
+        <span class="badge bg-danger">saída</span>
+      <%end%>
+  </td>
+  <td class="col-auto">
+    <p class="font-bold ms-3 mb-0">
+      <%= format_date_and_time(transaction.created_at) %>
+    </p>
+  </td>
+</tr>

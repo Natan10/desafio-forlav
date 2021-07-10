@@ -1,35 +1,161 @@
-<h2><%= @user.name %></h2>
-<h2><%= @user.email %></h2>
-<h2><%= @user.birthdate %></h2>
-
-<h3>Valor: <%= @user.wallet.balance %></h3>
-
-<br/>
-
-
-<% flash.each do |type, msg| %>
-  <div>
-    <%= msg %>
-  </div>
-<% end %>
-
-
-<%= form_with model: @transaction ,local: false do |f| %>
-  <div class="field-group">
-    <%= f.hidden_field :wallet_id, value: @user.wallet.id %>
-
-    <div class="field">
-      <%= f.label :status, "status" %>
-      <%= f.select :status, Transaction.statuses.to_a  %>
-    </div>
-    <div class="field">
-      <%= f.label :value, "valor" %>
-      <%= f.text_field :value  %>
-    </div>
-
-    <div class="submit">
-      <%= f.submit "Enviar" %>
-    </div>
-  </div>  
-
+<%= link_to root_url do %>
+  <span>Voltar</span>
 <%end%>
+
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <h3>
+            Saldo: <%= @user.wallet.balance %>
+          </h3>
+          <button type="button" class="btn btn-success block" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+            Nova Transação
+          </button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <div class="table-responsive" style="height:460px; width: 100%">
+              <table class="table table-hover table-lg">
+                <thead>
+                  <tr class="text-center">
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center overflow-y-scroll">
+                  <%= render partial: "transaction" ,collection: @transactions %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body px-2 py-2">
+                <div class="row">
+                  <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <span class="badge bg-success user_card">
+                      <i class="bi bi-arrow-right"></i>
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="text-muted font-semibold">
+                    <%= @credit_count  %> Entradas</h6>
+                    <h6 class="font-extrabold mb-0">
+                      <%= @credit %>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body px-2 py-2">
+                <div class="row">
+                  <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <span class="badge bg-danger user_card">
+                      <i class="bi bi-arrow-left"></i>
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="text-muted font-semibold">
+                      <%= @debit_count %> Saídas
+                    </h6>
+                    <h6 class="font-extrabold mb-0">
+                      <%= @debit %>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header pb-2 text-center">
+          <h5>Perfil</h5>
+      </div>
+      
+      <div class="card-content pb-2">
+        <div class="recent-message d-flex px-3 py-2">
+            <div class="name ms-4">
+                <h6 class="mb-1">Nome:</h6>
+                <h6 class="text-muted mb-0"><%= @user.name %></h6>
+            </div>
+        </div>
+        <div class="recent-message d-flex px-3 py-2">
+            <div class="name ms-4">
+                <h6 class="mb-1">Email:</h6>
+                <h6 class="text-muted mb-0"><%= @user.email %></h6>
+            </div>
+        </div>
+        <div class="recent-message d-flex px-3 py-2">
+            <div class="name ms-4">
+                <h6 class="mb-1">Data de Nascimento:</h6>
+                <h6 class="text-muted mb-0"><%= format_date(@user.birthdate) %></h6>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade text-left modal-borderless show" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">
+          Nova Transação
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <i data-feather="x"></i>
+        </button>
+      </div>
+      <%= form_with model: @transaction ,local: false do |f| %>
+        <%= f.hidden_field :wallet_id, value: @user.wallet.id %>
+
+          <div class="modal-body">               
+            <div class="form-body">
+              <div class="row">
+                <div class="col-12">
+                <div class="form-group">
+                    <%= f.label :status, "Tipo", class:"py-2" %>
+                    <div class="position-relative">
+                      <%= f.select :status, Transaction.statuses.to_a,{}, class: "form-select",id:"basicSelect"%>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group has-icon-right">
+                    <%= f.label :value, "Valor", class: "py-2"%>
+                    <div class="position-relative">
+                      <%= f.text_field :value ,class:"form-control",type: "number", placeholder: "Digite o Valor..." %>
+                      <div class="form-control-icon">
+                        <i class="bi bi-currency-dollar"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+              <i class="bx bx-x d-block d-sm-none"></i>
+              <span class="d-none d-sm-block">Fechar</span>
+          </button>
+          <%= f.submit "Criar", class:"btn btn-primary ml-1"%>   
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+

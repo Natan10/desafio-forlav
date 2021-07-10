@@ -1,34 +1,59 @@
-<%= form_with model: user , local: true do |f| %>
-  <% if user.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      
-      <ul>
-        <% user.errors.full_messages.each do |error| %>
-          <li><%=error%></li>
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header pb-2 d-flex justify-content-between align-items-center">
+        <h3 class="card-title">
+          <% if params[:action]=="edit"%> 
+            Editar Usuário
+          <%else%>
+            Novo Usuário
+          <%end%>  
+        </h3>
+        <%= link_to root_url do %>
+          <button class="btn btn-outline-secondary">Voltar</button>
         <%end%>
-      </ul>
-    </div>
-  <%end %>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <% if user.errors.any? %>
+            <% user.errors.messages.each do |title,message| %>
+              <div class="alert alert-danger alert-dismissible show fade">
+                  <%=title%>: <%=message[0]%>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div> 
+            <%end%>
+          <%end%>
 
-  <div class="field-group">
-    <div class="field">
-      <%= f.label :name, "name" %>
-      <%= f.text_field :name , placeholder: "digite seu nome..." %>
-    </div>
-
-    <div class="field">
-      <%= f.label :email, "email" %>
-      <%= f.email_field :email , placeholder: "digite seu email..." %>
-    </div>
-
-
-    <div class="field">
-      <%= f.label :birthdate, "data de aniversário" %>
-      <%= f.date_field :birthdate , placeholder: "digite sua data de nascimento..."%>
-    </div>
-
-    <div class="submit">
-      <%= f.submit "Enviar" %>
+          <%= form_with model: user ,class:"form form-vertical", local: true do |f| %>
+            <div class="form-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <%= f.label :name, "Name",class:"mb-1"  %>
+                    <%= f.text_field :name ,type: "text",class:"form-control", placeholder: "digite seu nome..." %>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <%= f.label :email, "Email",class:"mb-1"  %>
+                    <%= f.email_field :email ,type: "email",class:"form-control", placeholder: "digite seu email..." %>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-group">
+                    <%= f.label :birthdate, "Data de Nascimento",class:"mb-1" %>
+                    <%= f.date_field :birthdate ,class:"form-control", placeholder: "digite sua data de nascimento..."%>
+                  </div>
+                </div>
+                <div class="col-12 d-flex justify-content-end">
+                  <%= f.submit "Enviar",class:"btn btn-success me-1 mb-1" %>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
     </div>
   </div>
-<%end%>
+<div>
+
