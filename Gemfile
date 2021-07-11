@@ -38,7 +38,7 @@ group :development, :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "database_cleaner"
   gem "factory_bot_rails"
-  gem "faker", :git => "https://github.com/faker-ruby/faker.git", :branch => "master"
+  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
 end
 
 group :development do

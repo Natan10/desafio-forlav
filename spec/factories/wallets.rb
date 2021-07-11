@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :wallet do
     balance { 0 }
-    user 
+    user
   end
 end

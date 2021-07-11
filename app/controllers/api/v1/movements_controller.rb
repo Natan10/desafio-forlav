@@ -24,13 +24,13 @@ module Api
       end
 
       def entries
-        if check_dates.nil? 
-          @entries = set_user.transactions.all_transactions
+        @entries = if check_dates.nil?
+          set_user.transactions.all_transactions
         else
-          @entries = set_user.transactions
+          set_user.transactions
             .where(created_at: check_dates)
             .order(created_at: :desc)
-        end  
+        end
         render :entries
       rescue ActiveRecord::RecordNotFound
         verify_user
@@ -38,11 +38,11 @@ module Api
 
       private
 
-      def check_dates 
-        return nil if params[:start_date].nil? and params[:end_date].nil?
+      def check_dates
+        return nil if params[:start_date].nil? && params[:end_date].nil?
         return params[:end_date] if params[:start_date].nil?
         return (params[:start_date]..) if params[:end_date].nil?
-      
+
         params[:start_date]..params[:end_date]
       end
 
@@ -57,7 +57,6 @@ module Api
       end
 
       def check_date
-
       end
 
       def set_wallet
@@ -76,10 +75,10 @@ module Api
           .permit(:wallet_id, :value, :status)
       end
 
-      def verify_params 
+      def verify_params
         render json: {
           error: "Parâmetros inválidos!"
-        },status: :unprocessable_entity
+        }, status: :unprocessable_entity
       end
 
       def verify_user
