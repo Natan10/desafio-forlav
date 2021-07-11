@@ -5,6 +5,7 @@ env:
   POSTGRES_HOST: localhost
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: password
+  ENV: test
 
 jobs: 
   test:
@@ -30,10 +31,10 @@ jobs:
 
       - name: run tests
         env: 
-          PG_USER: postgres
-          PG_HOST: localhost
-          PG_PASSWORD: password
-          RAILS_ENV: test
+          PG_USER: ${{env.POSTGRES_USER}}
+          PG_HOST: ${{env.POSTGRES_HOST}}
+          PG_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+          RAILS_ENV: ${{env.ENV}}
         run: |
           bundle exec rails db:setup
           rspec
