@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
     @wallet = @transaction.wallet
 
     if @transaction.value.nil?
-      flash[:error] = "Valor não pode ficar em branco"
+      flash[:error] = "Valor não pode ficar em branco!"
     else
       @transaction.credit? ? credit : debit
     end
