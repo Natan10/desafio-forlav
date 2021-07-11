@@ -8,11 +8,14 @@ services:
       - ./tmp/database:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
-
+    restart: always
+      
   app:
     build: .
     container_name: rails-forlav
     environment:
+      PG_HOST: db
+      PG_USER: postgres
       PG_PASSWORD: password
     command: > 
       bash -c "rm -f tmp/pids/server.pid 
