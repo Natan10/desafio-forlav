@@ -16,9 +16,8 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
-      
         options: >-
-          --health-cmd mongo
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -36,10 +35,9 @@ jobs:
 
       - name: run tests
         env: 
-          PG_USER: ${{env.POSTGRES_USER}}
-          PG_HOST: ${{env.POSTGRES_HOST}}
-          PG_PORT: ${{job.services.db.ports[5432]}}
-          PG_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+          PG_USER: postgres
+          PG_HOST: db
+          PG_PASSWORD: password
           RAILS_ENV: test
         run: rspec
 
