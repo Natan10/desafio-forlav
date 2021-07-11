@@ -16,7 +16,7 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
-              
+
     steps:
       - uses: actions/checkout@v1
       - name: set up ruby 
@@ -34,5 +34,7 @@ jobs:
           PG_HOST: db
           PG_PASSWORD: password
           RAILS_ENV: test
-        run: rspec
+        run: |
+          bundle exec rails db:schema:load
+          rspec
 
