@@ -9,10 +9,12 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+
 require("custom/perfect-scrollbar.min")
 require("custom/bootstrap.bundle.min")
 require("custom/main")
 require("custom/dashboard")
+
 
 Rails.start()
 Turbolinks.start()
